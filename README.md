@@ -23,7 +23,7 @@ Este repositorio contiene el código fuente (para ambos nodos) y la documentaci�
 El proyecto opera bajo un modelo de comunicación inalámbrica de baja latencia utilizando el protocolo **ESP-NOW**. Todo el software está desarrollado en **C++** sobre el framework de Arduino, utilizando tareas en paralelo mediante **FreeRTOS** para evitar cuellos de botella en la memoria y en la interfaz visual.
 
 ### 📡 1. Nodo Emisor (Adquisición y Cálculo)
-* **Hardware:** ESP32 (Dev Board) + 2x NTC 10K (B3950) sumergibles + DHT11.
+* **Hardware:** ESP32 (Dev Board) + 2x NTC 10K (B3435) sumergibles + DHT11.
 * **Función:** Tarea fijada al núcleo 1 de la ESP32 para lectura de sensores cada 2 segundos mediante un circuito **Pull-Down** (NTC a 3.3V, R fija a GND). 
 * **Procesamiento:** Implementa la **Ecuación de Steinhart-Hart** con un ajuste lineal de calibración a dos puntos y ejecuta algoritmos psicrométricos de la ASHRAE para deducir propiedades físicas del aire.
 * **Transmisión:** Empaqueta 15 variables en un `struct` sincronizado y las envía al nodo receptor.
