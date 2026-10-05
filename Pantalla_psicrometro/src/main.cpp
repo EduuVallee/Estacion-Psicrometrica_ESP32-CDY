@@ -31,7 +31,7 @@ lv_chart_series_t * serie_bulbo;
 RTC_DS3231 rtc;
 
 
-SPIClass sdSPI(HSPI); // Creamos un bus SPI exclusivo para la SD pa que no tire el touch
+SPIClass sdSPI(HSPI); // Creamos un bus SPI exclusivo para la SD y sirva el touch
 
 void SDCardInit(){
     // Pines de la SD en la CYD: SCK=18, MISO=19, MOSI=23, CS=5
@@ -42,7 +42,7 @@ void SDCardInit(){
         Serial.println("SD no detectada.");
         return;
     }
-    Serial.println("SD conectada al tiro.");
+    Serial.println("SD conectada correctamente.");
 }
 
 // =========================================================================
@@ -139,7 +139,7 @@ void setup() {
         settimeofday(&tv, NULL);      
     }
 
-    // 3. Iniciar SD AQUI MERO WE (Antes de que LVGL y la foto se acaben la RAM)
+    // 3. Iniciar SD (Antes de que LVGL se acabe la RAM)
     SDCardInit();
     File archivo = SD.open("/datos_psicrometro.csv", FILE_APPEND);
     if (archivo) {
@@ -175,30 +175,12 @@ void setup() {
     lv_indev_drv_register( &indev_drv );
 
     ui_init();
-    
-    // Configuración de la foto
-   /*
-   uint32_t img_size = ui_img_1555184149.data_size; 
-    uint8_t *img_data = (uint8_t*)malloc(img_size);
-    if(img_data != NULL) {
-        const uint8_t *old_data = ui_img_1555184149.data;
-        for(uint32_t i = 0; i < img_size; i += 2) {
-            img_data[i] = old_data[i+1];
-            img_data[i+1] = old_data[i];
-        }
-        memcpy(&foto_corregida, &ui_img_1555184149, sizeof(lv_img_dsc_t));
-        foto_corregida.data = img_data; 
-        lv_imgbtn_set_src(ui_ImgBoton, LV_IMGBTN_STATE_RELEASED, NULL, &foto_corregida, NULL);
-    } else {
-        Serial.println("Chale, faltó RAM para la foto we :(");
-    }
-        */
 
     // Configuración de las gráficas
     serie_dht = lv_chart_add_series(ui_Chart2, lv_color_hex(0xFF0000), LV_CHART_AXIS_PRIMARY_Y); 
     serie_bulbo = lv_chart_add_series(ui_Chart2, lv_color_hex(0x0088FF), LV_CHART_AXIS_PRIMARY_Y);
 
-    Serial.println( "¡Todo el sistema listo, mai!" );
+    Serial.println( "Todo el sistema listo." );
 }
 
 // =========================================================================
@@ -235,8 +217,6 @@ void loop() {
                 lv_label_set_text(ui_uiLabelRef, txt_ref);
                 lv_label_set_text(ui_uiLabelHum, txt_hum); 
 
-                // Descomenta esto si usas el arco de humedad
-                // lv_arc_set_value(ui_GrafHum, (int)datos_pantalla.hr_dht);
             }
         }
     }
