@@ -1,3 +1,5 @@
+[readme_del_proyecto.md](https://github.com/user-attachments/files/32452085/readme_del_proyecto.md)
+
 # 🌦️ Estación Psicrométrica Digital Inalámbrica (ESP32 + CYD)
 
 **Automatización de Biosistemas | Ingeniería Mecatrónica Agrícola**
