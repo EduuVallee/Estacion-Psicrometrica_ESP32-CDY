@@ -18,6 +18,40 @@ Este repositorio contiene el código fuente (para ambos nodos) y la documentaci�
 
 ---
 
+---
+
+## 📈 Resultados y Validación en Campo
+
+Para garantizar la fiabilidad del instrumento, se validaron los cálculos del psicrómetro digital contrastándolos simultáneamente con un sensor **DHT11** y con los registros de una **Estación Meteorológica Institucional (CR1000)** del Laboratorio de Biosistemas.
+
+### 1. Comportamiento Ambiental y Detección de Anomalías
+![Comportamiento Ambiental](img/grafica1.png)
+> **Análisis:** Durante la evaluación se identificó una anomalía crítica entre el 2 y el 3 de octubre. La Humedad Relativa se clavó en un estado de saturación irreal (100%), mientras la Temperatura de Bulbo Seco oscilaba naturalmente entre 14 °C y 23 °C. 
+> **Diagnóstico:** Pérdida del cedazo húmedo por evaporación e interrupción capilar. Al secarse el termistor, la depresión de bulbo húmedo ($T_{bs} - T_{bh}$) fue igual a cero, forzando a los algoritmos ASHRAE a interpretar matemáticamente una saturación total.
+
+### 2. Comparativa de Humedad Relativa
+![Comparativa HR](img/grafica2.png)
+> El psicrómetro y el DHT11 muestran un acoplamiento estrecho con la estación institucional en condiciones de humedad baja y media (~35% a 75%). A partir de la falla del cedazo el 1 de octubre, se registra una saturación errónea del 100% en el prototipo, fenómeno que también afectó al DHT11 llevándolo a su límite instrumental (~98%), mientras la estación de referencia se mantenía por debajo del 90%.
+
+### 3. Seguimiento Térmico (Bulbo Seco)
+![Comparativa Temperatura](img/grafica3.png)
+> La Temperatura de Bulbo Seco presenta un seguimiento térmico prácticamente idéntico entre los tres sistemas, con variaciones naturales del ciclo diurno (12 °C a 27 °C). Las divergencias menores se observan únicamente durante los picos de calor máximo, donde los termistores NTC expuestos en la cámara del psicrómetro captan las variaciones convectivas más rápido que el encapsulado de la estación comercial.
+
+### 4. Análisis de Errores Absolutos y Precisión
+![Error Absoluto](img/grafica4.png)
+
+El error absoluto confirma la alta fidelidad de la arquitectura electrónica. La divergencia frente al equipo comercial ocurre mayormente en picos puntuales, pero mantiene promedios sumamente competitivos para la automatización agrícola.
+
+| Comparativa de Sensores | Error Absoluto Medio | Error Absoluto Máximo | Error Relativo Medio |
+| :--- | :---: | :---: | :---: |
+| **DHT11 vs Psicrómetro** | 0.49 °C | 0.94 °C | 2.82 % |
+| **Psicrómetro vs Estación** | 0.74 °C | 5.19 °C | 4.14 % |
+| **DHT11 vs Estación** | 0.81 °C | 5.54 °C | 4.47 % |
+
+### 5. Proyección en Carta Psicrométrica
+![Carta Psicrométrica](img/grafica5.png)
+> El análisis termodinámico proyectado a 2250 msnm sintetiza visualmente el impacto del fallo mecánico. Mientras la nube de datos de la Estación Institucional (azul) y el DHT11 (verde) siguen trayectorias coherentes dentro de la zona operativa del aire, la franja de datos del Prototipo (naranja) colapsa sobre la línea de saturación ($100\%$ HR). Esta firma gráfica permite aislar de manera visual los datos erróneos correspondientes al periodo sin humectación.
+
 ## ⚙️ Arquitectura del Sistema
 
 El proyecto opera bajo un modelo de comunicación inalámbrica de baja latencia utilizando el protocolo **ESP-NOW**. Todo el software está desarrollado en **C++** sobre el framework de Arduino, utilizando tareas en paralelo mediante **FreeRTOS** para evitar cuellos de botella en la memoria y en la interfaz visual.
