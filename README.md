@@ -89,9 +89,12 @@ El firmware del nodo emisor está programado para calcular las siguientes propie
 ### Nodo 1: Sensores (ESP32)
 | Componente | Pin ESP32 | Configuración |
 | :--- | :--- | :--- |
-| **NTC Bulbo Seco** | `GPIO 35` (ADC) | Divisor de tensión Pull-Down (10kΩ a GND) |
-| **NTC Bulbo Húmedo**| `GPIO 34` (ADC) | Divisor de tensión Pull-Down (10kΩ a GND) |
-| **DHT11 (Referencia)**| `GPIO 23` | Señal de datos (Pull-Up interno o 10kΩ a VCC) |
+| **NTC Bulbo Seco 1** | `GPIO 34` (ADC) | Divisor de tensión Pull-Down (10kΩ a GND) |
+| **NTC Bulbo Húmedo**| `GPIO 35` (ADC) | Divisor de tensión Pull-Down (10kΩ a GND) |
+| **NTC Bulbo Seco 2** | `GPIO 32` (ADC) | Divisor de tensión Pull-Down (10kΩ a GND) |
+| **NTC Bulbo Seco 3**| `GPIO 33` (ADC) | Divisor de tensión Pull-Down (10kΩ a GND) |
+| **AHT10 SDA** | GPIO 21 | Comunicación I2C (Datos) |
+| **AHT10 SCL** | GPIO 22 | Comunicación I2C (Reloj) |
 
 ### Nodo 2: Interfaz (Pantalla CYD)
 | Componente | Pin CYD | Función |
